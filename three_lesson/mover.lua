@@ -8,6 +8,7 @@ function Mover:create(location, velocity, weight)
     mover.velocity = velocity
     mover.aVelocity = 0
     mover.angle = 0
+    mover.active = false
     mover.acceleration = Vector:create(0, 0)
     mover.weight = weight or 1
     mover.size = 20 * mover.weight
@@ -29,8 +30,26 @@ function Mover:draw()
     love.graphics.push()
     love.graphics.translate(self.location.x, self.location.y)
     love.graphics.rotate(self.angle)
-    love.graphics.rectangle("fill", -self.size / 2, -self.size / 2, self.size, self.size)
+
+    r, g, b, a = love.graphics.getColor()
+
+    love.graphics.line(-30, -30, 30, 0, -30, 30, -30, -30)
+    local type = "line"
+
+    if self.active then
+        type = "fill"
+        love.graphics.setColor(1, 0, 0, 1)
+    end
+
+    love.graphics.rectangle(type, -40, 5, 10, 20)
+    love.graphics.rectangle(type, -40, -25, 10, 20)
+
+    love.graphics.setColor(r, g, b, a)
     love.graphics.pop()
+end
+
+function Mover:rotate(dangle)
+    self.angle = self.angle + dangle
 end
 
 function Mover:applyForce(force)

@@ -8,9 +8,6 @@ function love.load()
 
     mover = Mover:random()
     mover2 = Mover:random()
-
-    -- mover.aVelocity = 0.2
-    -- mover2.aVelocity = -0.3
 end
 
 function love.update(dt)
@@ -35,6 +32,15 @@ function love.update(dt)
     mover:update()
     mover.velocity = mover.velocity:limit(5)
     mover:checkBoundaries()
+
+    x, y = love.mouse.getPosition()
+    mouse = Vector:create(x, y)
+    dir = mouse - mover2.location
+    acceleration = dir:norm() * 0.4
+    mover2.acceleration = acceleration
+    angle = math.atan2(mover2.velocity.y, mover2.velocity.x)
+    mover2.angle = angle
+    mover2.active = true
 
     mover2:update()
     mover2:checkBoundaries()

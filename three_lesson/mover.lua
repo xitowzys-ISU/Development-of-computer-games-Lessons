@@ -8,7 +8,8 @@ function Mover:create(location, velocity, weight)
     mover.velocity = velocity
     mover.acceleration = Vector:create(0, 0)
     mover.weight = weight or 1
-    mover.size = 20  * mover.weight
+    mover.size = 20 * mover.weight
+    mover.attractor = Attractor:create(location, mover.weight)
     return mover
 end
 
@@ -55,3 +56,6 @@ function Mover:update()
     self.acceleration:mul(0)
 end
 
+function Mover:attract(mover)
+    self.attractor:attract(mover)
+end

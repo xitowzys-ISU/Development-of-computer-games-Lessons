@@ -5,8 +5,7 @@ require("attractor")
 function love.load()
     width = love.graphics.getWidth()
     height = love.graphics.getHeight()
-
-
+    G = 1.8
     local location = Vector:create(width / 2 + 100, height / 2)
 
     attractor = Attractor:create(location, 20)
@@ -18,6 +17,7 @@ end
 
 function love.update(dt)
     mover:update()
+    attractor:attract(mover)
 end
 
 function love.draw()

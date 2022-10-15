@@ -24,3 +24,22 @@ function Attractor:draw()
 
     love.graphics.setColor(r, g, b, a)
 end
+
+function Attractor:attract(mover)
+    local diff = self.location - mover.location
+    local distance = diff:mag()
+
+    if distance < 5 then
+        distance = 5
+    end
+
+    if distance > 30 then
+        distance = 30
+    end
+
+    local force = diff:norm()
+    local strength = (G * self.mass * mover.weight) / (distance * distance)
+    force:mul(strength)
+
+    mover:applyForce(force)
+end

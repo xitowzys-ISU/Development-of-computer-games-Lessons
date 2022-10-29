@@ -23,12 +23,43 @@ function Pendulum:draw()
     love.graphics.circle("line", self.origin.x, self.origin.y, 5)
     love.graphics.line(self.origin.x, self.origin.y, self.position.x, self.position.y)
 
-    love.graphics.circle("fill", self.position.x, self.position.y, self.r)
+    local style = "fill"
+    if self.dragging then
+        style = "line"
+    end
+
+    love.graphics.circle(style, self.position.x, self.position.y, self.r)
 end
 
 function Pendulum:update()
+    self:drag()
     self.aAcceleration = (-1 * gravity / self.length) * math.sin(self.angle)
     self.aVelocity = self.aVelocity + self.aAcceleration
     self.aVelocity = self.aVelocity * self.damping
     self.angle = self.angle + self.aVelocity
+end
+
+function Pendulum:clicked(mousex, mousey)
+    local d = Vector:create(mousex, mousey) - self.position
+    d = d:mag()
+
+    if d < self.r then
+        self.dragging = true
+    end
+end
+
+function Pendulum:stopGragging()
+    if self.dragging then
+        self.dragging = false
+        self.aVelocity = 0
+    end
+end
+
+function Pendulum:drag()
+    if self.dragging then
+        local x, y = love.mouse.getPosition()
+        local diff = self.origin - Vector:create(x, y)
+        self.angle = math.atan2(-1 * diff.y, diff.x) - math.pi / 2
+    end
+
 end

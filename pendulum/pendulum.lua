@@ -17,11 +17,18 @@ function Pendulum:create(origin, length)
 end
 
 function Pendulum:draw()
-    self.position.x = self.length * math.sin(self.angle)
-    self.position.y = self.length * math.cos(self.angle)
+    self.position.x = self.length * math.sin(self.angle) + self.origin.x
+    self.position.y = self.length * math.cos(self.angle) + self.origin.y
 
     love.graphics.circle("line", self.origin.x, self.origin.y, 5)
     love.graphics.line(self.origin.x, self.origin.y, self.position.x, self.position.y)
 
-    love.graphics.circle("fill", self.position.y, self.position.y, self.r)
+    love.graphics.circle("fill", self.position.x, self.position.y, self.r)
+end
+
+function Pendulum:update()
+    self.aAcceleration = (-1 * gravity / self.length) * math.sin(self.angle)
+    self.aVelocity = self.aVelocity + self.aAcceleration
+    self.aVelocity = self.aVelocity * self.damping
+    self.angle = self.angle + self.aVelocity
 end

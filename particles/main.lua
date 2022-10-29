@@ -1,24 +1,22 @@
 require "vector"
 require "particle"
+require "particlesystem"
 
 function love.load()
     width = love.graphics.getWidth()
     height = love.graphics.getHeight()
 
-    particle = Particle:create(Vector:create(width / 2, height / 2))
+    system = ParticleSystem:create(Vector:create(width / 2, height / 2))
 
-
+    system:createParticles()
 
 end
 
 function love.update(dt)
-    if particle:isDead() then
-        particle = Particle:create(Vector:create(width / 2, height / 2))
-    end
-    particle:update()
+    system:update()
 end
 
 function love.draw()
-    particle:draw()
+    system:draw()
 
 end

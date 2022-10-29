@@ -67,3 +67,7 @@ function Vector:limit(max)
     end
     return self
 end
+
+function Vector:copy()
+    return Vector:create(self.x, self.y)
+end

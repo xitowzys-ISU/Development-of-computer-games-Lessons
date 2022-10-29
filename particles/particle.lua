@@ -27,6 +27,10 @@ function Particle:isDead()
     return false
 end
 
+function Particle:applyForce(force) 
+    self.acceleration:add(force)
+end
+
 function Particle:draw()
 
     r, g, b, a = love.graphics.getColor()

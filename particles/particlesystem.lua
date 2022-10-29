@@ -29,6 +29,18 @@ function ParticleSystem:draw()
     end
 end
 
+function ParticleSystem:applyForce(force)
+    for k, v in pairs(self.particles) do
+        v:applyForce(force)
+    end
+end
+
+function ParticleSystem:applyRepeller(repeller)
+    for k, v in pairs(self.particles) do
+        v:applyForce(repeller:repel(v))
+    end
+end
+
 function ParticleSystem:update()
 
     if #self.particles < self.n then

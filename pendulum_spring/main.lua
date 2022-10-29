@@ -8,23 +8,24 @@ function love.load()
 
     gravity = 1
     mover = Mover:create(100, 100, 100)
-    mover2 = Mover:create(400, 400, 20)
+    -- mover2 = Mover:create(400, 400, 20)
     spring = Spring:create(Vector:create(500, 500), 100)
 
 
-    
+
 end
 
 function love.update(dt)
     mover:update()
-    mover2:update()
+    -- mover2:update()
     spring:apply(mover)
+    spring:constrain(mover, 50, 400)
 
 end
 
 function love.draw()
     mover:draw()
-    mover2:draw()
+    -- mover2:draw()
     spring:draw()
 
     spring:drawLine(mover)

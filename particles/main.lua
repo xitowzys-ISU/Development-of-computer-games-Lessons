@@ -6,9 +6,7 @@ function love.load()
     width = love.graphics.getWidth()
     height = love.graphics.getHeight()
 
-    system = ParticleSystem:create(Vector:create(width / 2, height / 2))
-
-    system:createParticles()
+    system = ParticleSystem:create(Vector:create(width / 2, height / 2), 100)
 
 end
 

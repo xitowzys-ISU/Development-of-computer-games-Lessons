@@ -9,7 +9,7 @@ function ParticleSystem:create(origin, n, cls)
     system.n = n or 10
     system.particles = {}
     system.cls = cls or Particle
-
+    system.index = 1
     return system
 end
 
@@ -24,8 +24,8 @@ function ParticleSystem:createParticles()
 end
 
 function ParticleSystem:draw()
-    for i = 1, self.n, 1 do
-        self.particles[i]:draw()
+    for k, v in pairs(self.particles) do
+        v:draw()
     end
 end
 
@@ -43,7 +43,7 @@ function ParticleSystem:update()
     for k, v in pairs(self.particles) do
         if v:isDead() then
             v = self:createParticle()
-            self.particles[k] = self:createParticle()
+            self.particles[k] = v
         end
         v:update()
     end

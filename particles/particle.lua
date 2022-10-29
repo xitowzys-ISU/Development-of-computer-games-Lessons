@@ -6,10 +6,10 @@ function Particle:create(position)
     setmetatable(particle, Particle)
     particle.position = position
     particle.acceleration = Vector:create(0, 0.05)
-    particle.velocity = Vector:create(math.random(-1, 1), math.random(-1, 1))
+    particle.velocity = Vector:create(math.random(-10, 10) / 10, math.random(-10, 0) / 10)
 
     particle.lifespan = 100
-    particle.texture = love.graphics.newImage("assets/beaver.png")
+    particle.texture = love.graphics.newImage("assets/api.png")
     return particle
 
 end
